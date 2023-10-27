@@ -49,17 +49,19 @@ class Sender:
         scroll_origin = ScrollOrigin.from_element(origin)
         quebrar = False
         while 1:
+            # Subir a página
             delta_y = -(origin.rect['y'])
             ActionChains(self.navegador) \
                 .scroll_from_origin(scroll_origin, 0, int(delta_y * 2)) \
                 .perform()
             time.sleep(0.5)
-
+            # Pegar os contatos atuais mostrando
             contatos = self.navegador.find_elements(By.CLASS_NAME, '_30scZ')
             for contato in contatos:
                 if contato.text not in lista:
                     lista.append(contato.text)
 
+            # Pegar os separadores para poder ver se acabou os contatos
             separadores = self.navegador.find_elements(By.CLASS_NAME, '_2a-B5')
             for ele in separadores:
                 if ele.text.lower() == 'contatos no whatsapp':
@@ -71,16 +73,20 @@ class Sender:
                         if contato.text not in lista:
                             lista.append(contato.text)
                     quebrar = True
+            # Terminar o while
             if quebrar:
                 break
-
+        self.lista_contatos = lista
         return lista
 
     def pegar_contatos_recentes(self):
+        # Pegar os contatos, irá pegar apenas os da parte de cima,
+        # em breve farei para pegar todos.
         contatos = self.navegador.find_elements(By.CLASS_NAME, '_8nE1Y')
         lista_contatos_recentes = []
         for contato in contatos:
             nome = contato.find_element(By.CLASS_NAME, "_30scZ").text
+            # A data será utilizada posteriormente.
             # data = contato.find_element(By.CLASS_NAME, "Dvjym")
             if nome not in lista_contatos_recentes:
                 lista_contatos_recentes.append(nome)
@@ -117,6 +123,9 @@ class Sender:
         time.sleep(2)
 
     def _verificar_quantidade_de_envios(self):
+        # Como será encaminhado a mensagem para a cada 5, pega a quantia
+        # atual e divide por 5, se for perfeito, só pega o quanto deu, caso tenha resto
+        # irá somar +1.
         qtde_contatos = len(self.lista_contatos)
         if qtde_contatos % 5 == 0:
             blocos = qtde_contatos / 5
