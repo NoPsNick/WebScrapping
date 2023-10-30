@@ -17,6 +17,7 @@ class Sender:
     navegador = webdriver.Chrome(service=service)
     navegador.get("https://web.whatsapp.com/")
     lista_contatos = []
+    com_data: bool = False
 
     def __init__(self, receptor, mensagem):
         self.receptor = receptor
@@ -25,36 +26,29 @@ class Sender:
     def pegar_contatos(self):
         # Ir para a lista de contatos.
         self.navegador.find_element(By.XPATH,
-                               '//*[@id="app"]/div/div/div[4]/header/div[2]/div/span/div[4]/div/span'
-                               ).click()
+                                    '//*[@id="app"]/div/div/div[4]/header/div[2]/div/span/div[4]/div/span'
+                                    ).click()
 
         # Ir para o final da lista de contatos
         origin = self.navegador.find_element(By.XPATH,
-                                        '//*[@id="app"]/div/div/div[3]/div[1]/span/div/span/div/div[2]/div[5]/div/div/div[1]/div/div[2]'
-                                        )
-        scroll_origin = ScrollOrigin.from_element(origin)
-        ActionChains(self.navegador) \
-            .scroll_from_origin(scroll_origin, 0, 100000) \
-            .perform()
-        time.sleep(1)
-        lista = []
+                                             '//*[@id="app"]/div/div/div[3]/div[1]/span/div/span/div/div[2]/div['
+                                             '5]/div/div/div[1]/div/div[2]'
+                                             )
+        self.mover_pagina(pagina=origin, delta_y=1000000)
 
         # Pegar os contatos
+        lista = []
         contatos = self.navegador.find_elements(By.CLASS_NAME, '_30scZ')
         for contato in contatos:
             if contato.text not in lista:
                 lista.append(contato.text)
         origin = self.navegador.find_element(By.XPATH,
-                                        '//*[@id="app"]/div/div/div[3]/div[1]/span/div/span/div/div[2]')
-        scroll_origin = ScrollOrigin.from_element(origin)
+                                             '//*[@id="app"]/div/div/div[3]/div[1]/span/div/span/div/div[2]')
         quebrar = False
         while 1:
             # Subir a página
             delta_y = -(origin.rect['y'])
-            ActionChains(self.navegador) \
-                .scroll_from_origin(scroll_origin, 0, int(delta_y * 2)) \
-                .perform()
-            time.sleep(0.5)
+            self.mover_pagina(pagina=origin, delta_y=(delta_y * 2))
             # Pegar os contatos atuais mostrando
             contatos = self.navegador.find_elements(By.CLASS_NAME, '_30scZ')
             for contato in contatos:
@@ -65,33 +59,85 @@ class Sender:
             separadores = self.navegador.find_elements(By.CLASS_NAME, '_2a-B5')
             for ele in separadores:
                 if ele.text.lower() == 'contatos no whatsapp':
-                    ActionChains(self.navegador) \
-                        .scroll_from_origin(scroll_origin, 0, -1000000) \
-                        .perform()
+                    self.mover_pagina(pagina=origin, delta_y=-1000000)
                     time.sleep(0.5)
                     for contato in contatos:
                         if contato.text not in lista:
                             lista.append(contato.text)
                     quebrar = True
+                    break
             # Terminar o while
             if quebrar:
                 break
         self.lista_contatos = lista
+        self.com_data = False
         return lista
 
+    def mover_pagina(self, pagina, delta_y):
+        scroll_origin = ScrollOrigin.from_element(pagina)
+        ActionChains(self.navegador) \
+            .scroll_from_origin(scroll_origin, 0, delta_y) \
+            .perform()
+        time.sleep(0.5)
+
     def pegar_contatos_recentes(self):
-        # Pegar os contatos, irá pegar apenas os da parte de cima,
-        # em breve farei para pegar todos.
+        ultimo = self._pegar_ultimo()
+
+        # Pegar os contatos e a data.
         contatos = self.navegador.find_elements(By.CLASS_NAME, '_8nE1Y')
-        lista_contatos_recentes = []
+        contatos_recentes = {}
         for contato in contatos:
-            nome = contato.find_element(By.CLASS_NAME, "_30scZ").text
-            # A data será utilizada posteriormente.
-            # data = contato.find_element(By.CLASS_NAME, "Dvjym")
-            if nome not in lista_contatos_recentes:
-                lista_contatos_recentes.append(nome)
-        self.lista_contatos = lista_contatos_recentes
-        return lista_contatos_recentes
+            nome = contato.find_element(By.CLASS_NAME, "_11JPr").text
+            data = contato.find_element(By.CLASS_NAME, "aprpv14t").text
+            contatos_recentes[nome] = data
+
+        origin = self.navegador.find_element(By.XPATH,
+                                             '//*[@id="pane-side"]')
+        quebrar = False
+        while 1:
+            # Descer a página
+            delta_y = (origin.rect['y'])
+            self.mover_pagina(pagina=origin, delta_y=delta_y)
+
+            contatos = self.navegador.find_elements(By.CLASS_NAME, '_8nE1Y')
+            for contato in contatos:
+                nome = contato.find_element(By.CLASS_NAME, "_11JPr").text
+                data = contato.find_element(By.CLASS_NAME, "aprpv14t").text
+                contatos_recentes[nome] = data
+            if ultimo in contatos_recentes:
+                self.mover_pagina(pagina=origin, delta_y=1000000)
+
+                contatos = self.navegador.find_elements(By.CLASS_NAME, '_8nE1Y')
+                for contato in contatos:
+                    nome = contato.find_element(By.CLASS_NAME, "_11JPr").text
+                    data = contato.find_element(By.CLASS_NAME, "aprpv14t").text
+                    contatos_recentes[nome] = data
+                quebrar = True
+            if quebrar:
+                break
+
+        self.lista_contatos = contatos_recentes
+        self.com_data = True
+        return contatos_recentes
+
+    def _pegar_ultimo(self):
+        elemento = self.navegador.find_element(By.XPATH,
+                                               '//*[@id="pane-side"]/div[2]/div')
+        ActionChains(self.navegador) \
+            .scroll_to_element(elemento) \
+            .perform()
+        time.sleep(0.5)
+        pegar = {}
+        contatos = self.navegador.find_elements(By.CLASS_NAME, '_8nE1Y')
+        for contato in contatos:
+            nome = contato.find_element(By.CLASS_NAME, "_11JPr").text
+            data = contato.find_element(By.CLASS_NAME, "aprpv14t").text
+            pegar[nome] = data
+        menor = min(pegar.items())
+        for chave in pegar.keys():
+            if menor == pegar[chave]:
+                ultimo = chave
+                return ultimo
 
     def enviar_para_o_receptor(self):
         # O recetor seria a pessoa que irá receber a mensagem que deve ser
@@ -117,9 +163,9 @@ class Sender:
                                     '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]/p'
                                     ).send_keys(Keys.CONTROL + "v")
 
-        self.navegador.find_element('xpath',
-                                    '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]/p'
-                                    ).send_keys(Keys.ENTER)
+        # self.navegador.find_element('xpath',
+        #                             '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]/p'
+        #                             ).send_keys(Keys.ENTER)
         time.sleep(2)
 
     def _verificar_quantidade_de_envios(self):
@@ -134,6 +180,7 @@ class Sender:
         return int(blocos)
 
     def encaminhar_a_mensagem(self):
+        elemento = None
         for i in range(self._verificar_quantidade_de_envios()):
             # Rodar o codigo de encaminhar
             i_inicial = i * 5
@@ -161,17 +208,20 @@ class Sender:
                 # Selecionar os 5 contatos para enviar
                 # Escrever o nome do contato
                 self.navegador.find_element('xpath',
-                                            '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/div[1]/div/div/div[2]/div/div[1]/p'
+                                            '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/div['
+                                            '1]/div/div/div[2]/div/div[1]/p'
                                             ).send_keys(nome)
                 time.sleep(1)
                 # Dar enter
                 self.navegador.find_element('xpath',
-                                            '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/div[1]/div/div/div[2]/div/div[1]/p'
+                                            '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/div['
+                                            '1]/div/div/div[2]/div/div[1]/p'
                                             ).send_keys(Keys.ENTER)
                 time.sleep(1)
                 # Apagar o nome do contato
                 self.navegador.find_element('xpath',
-                                            '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/div[1]/div/div/div[2]/div/div[1]/p'
+                                            '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/div['
+                                            '1]/div/div/div[2]/div/div[1]/p'
                                             ).send_keys(Keys.BACKSPACE)
                 time.sleep(1)
 
@@ -179,3 +229,7 @@ class Sender:
                                         '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/span/div/div/div/span'
                                         ).click()
             time.sleep(3)
+
+
+if __name__ == '__main__':
+    envio = Sender(receptor="você", mensagem='Testando, 1.2..3...')
