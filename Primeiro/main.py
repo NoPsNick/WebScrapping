@@ -5,6 +5,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
+from datetime import datetime, timedelta
+
 import pyperclip
 
 import time
@@ -16,10 +18,22 @@ class Sender:
     service = Service(ChromeDriverManager().install())
     navegador = webdriver.Chrome(service=service)
     navegador.get("https://web.whatsapp.com/")
-    lista_contatos = []
-    com_data: bool = False
+    eng = {"Segunda-Feira": "Monday", "Terça-Feira": "Tuesday", "Quarta-Feira": "Wednesday",
+           "Quinta-Feira": "Thursday", "Sexta-Feira": "Friday", "Sábado": "Saturday", "Domingo": "Sunday"}
+    weekdays = {0: {'Sunday': -1, 'Saturday': -2, 'Friday': -3, 'Thursday': -4, 'Wednesday': -5, 'Tuesday': -6},
+                1: {'Monday': -1, 'Sunday': -2, 'Saturday': -3, 'Friday': -4, 'Thursday': -5, 'Wednesday': -6},
+                2: {'Tuesday': -1, 'Monday': -2, 'Sunday': -3, 'Saturday': -4, 'Friday': -5, 'Thursday': -6},
+                3: {'Wednesday': -1, 'Tuesday': -2, 'Monday': -3, 'Sunday': -4, 'Saturday': -5, 'Friday': -6},
+                4: {'Thursday': -1, 'Wednesday': -2, 'Tuesday': -3, 'Monday': -4, 'Sunday': -5, 'Saturday': -6},
+                5: {'Friday': -1, 'Thursday': -2, 'Wednesday': -3, 'Tuesday': -4, 'Monday': -5, 'Sunday': -6},
+                6: {'Saturday': -1, 'Friday': -2, 'Thursday': -3, 'Wednesday': -4, 'Tuesday': -5, 'Monday': -6}
+                }
 
-    def __init__(self, receptor, mensagem):
+    def __init__(self, receptor, mensagem, lista_contatos=None, com_data=False):
+
+        if lista_contatos is None:
+            self.lista_contatos = []
+        self.com_data = com_data
         self.receptor = receptor
         self.mensagem = mensagem
 
@@ -82,17 +96,21 @@ class Sender:
 
     def pegar_contatos_recentes(self):
         ultimo = self._pegar_ultimo()
+        time.sleep(2)
+
+        origin = self.navegador.find_element(By.XPATH,
+                                             '//*[@id="pane-side"]')
+        self.mover_pagina(pagina=origin, delta_y=-1000000)
+        time.sleep(0.5)
 
         # Pegar os contatos e a data.
         contatos = self.navegador.find_elements(By.CLASS_NAME, '_8nE1Y')
         contatos_recentes = {}
         for contato in contatos:
             nome = contato.find_element(By.CLASS_NAME, "_11JPr").text
-            data = contato.find_element(By.CLASS_NAME, "aprpv14t").text
+            data = self._converter_data(contato.find_element(By.CLASS_NAME, "aprpv14t").text)
             contatos_recentes[nome] = data
 
-        origin = self.navegador.find_element(By.XPATH,
-                                             '//*[@id="pane-side"]')
         quebrar = False
         while 1:
             # Descer a página
@@ -102,7 +120,7 @@ class Sender:
             contatos = self.navegador.find_elements(By.CLASS_NAME, '_8nE1Y')
             for contato in contatos:
                 nome = contato.find_element(By.CLASS_NAME, "_11JPr").text
-                data = contato.find_element(By.CLASS_NAME, "aprpv14t").text
+                data = self._converter_data(contato.find_element(By.CLASS_NAME, "aprpv14t").text)
                 contatos_recentes[nome] = data
             if ultimo in contatos_recentes:
                 self.mover_pagina(pagina=origin, delta_y=1000000)
@@ -110,7 +128,7 @@ class Sender:
                 contatos = self.navegador.find_elements(By.CLASS_NAME, '_8nE1Y')
                 for contato in contatos:
                     nome = contato.find_element(By.CLASS_NAME, "_11JPr").text
-                    data = contato.find_element(By.CLASS_NAME, "aprpv14t").text
+                    data = self._converter_data(contato.find_element(By.CLASS_NAME, "aprpv14t").text)
                     contatos_recentes[nome] = data
                 quebrar = True
             if quebrar:
@@ -119,6 +137,19 @@ class Sender:
         self.lista_contatos = contatos_recentes
         self.com_data = True
         return contatos_recentes
+
+    def _converter_data(self, data):
+        if data == 'Ontem' and data not in self.eng:
+            valor = datetime.now() - timedelta(days=1)
+            pegar = valor.strftime('%d/%m/%Y')
+            data = pegar
+        else:
+            try:
+                datetime_obj = datetime.strptime(data, '%d/%m/%Y')
+                data = datetime_obj.strftime('%d/%m/%Y')
+            except:
+                data = datetime.now().strftime('%d/%m/%Y')
+        return data
 
     def _pegar_ultimo(self):
         elemento = self.navegador.find_element(By.XPATH,
@@ -180,7 +211,6 @@ class Sender:
         return int(blocos)
 
     def encaminhar_a_mensagem(self):
-        elemento = None
         for i in range(self._verificar_quantidade_de_envios()):
             # Rodar o codigo de encaminhar
             i_inicial = i * 5
