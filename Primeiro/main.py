@@ -29,13 +29,13 @@ class Sender:
                 6: {'Saturday': -1, 'Friday': -2, 'Thursday': -3, 'Wednesday': -4, 'Tuesday': -5, 'Monday': -6}
                 }
 
-    def __init__(self, receptor, mensagem, lista_contatos=None, com_data=False):
+    def __init__(self, receptor, mensagem, lista_contatos, foi_enviado: bool = False, com_data: bool = False):
 
-        if lista_contatos is None:
-            self.lista_contatos = []
+        self.lista_contatos = lista_contatos
         self.com_data = com_data
         self.receptor = receptor
         self.mensagem = mensagem
+        self.foi_enviado = foi_enviado
 
     def pegar_contatos(self):
         # Ir para a lista de contatos.
@@ -171,16 +171,17 @@ class Sender:
                 return ultimo
 
     def enviar_para_o_receptor(self):
+        time.sleep(15)
         # O recetor seria a pessoa que irá receber a mensagem que deve ser
         # encaminhada para todas as outras a cada 5.
         # Clicar na lupa.
         self.navegador.find_element(
             'xpath',
-            '//*[@id="side"]/div[1]/div/div/button/div[2]/span').click()
+            '//*[@id="side"]/div[1]/div/div[2]/button').click()
         # Escrever o nome de quem irá receber a mensagem para encaminhar para os outros.
         self.navegador.find_element(
             'xpath',
-            '//*[@id="side"]/div[1]/div/div/div[2]/div/div[1]/p').send_keys(str(self.receptor))
+            '//*[@id="side"]/div[1]/div/div[2]/div[2]/div/div[1]/p').send_keys(str(self.receptor))
         # Apertar ENTER para enviar.
         self.navegador.find_element(
             'xpath',
@@ -193,11 +194,12 @@ class Sender:
         self.navegador.find_element('xpath',
                                     '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]/p'
                                     ).send_keys(Keys.CONTROL + "v")
-
-        # self.navegador.find_element('xpath',
-        #                             '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]/p'
-        #                             ).send_keys(Keys.ENTER)
+        time.sleep(0.5)
+        self.navegador.find_element('xpath',
+                                    '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]/p'
+                                    ).send_keys(Keys.ENTER)
         time.sleep(2)
+        self.foi_enviado = True
 
     def _verificar_quantidade_de_envios(self):
         # Como será encaminhado a mensagem para a cada 5, pega a quantia
@@ -211,55 +213,61 @@ class Sender:
         return int(blocos)
 
     def encaminhar_a_mensagem(self):
-        for i in range(self._verificar_quantidade_de_envios()):
-            # Rodar o codigo de encaminhar
-            i_inicial = i * 5
-            i_final = (i + 1) * 5
-            lista_enviar = self.lista_contatos[i_inicial:i_final]
+        if self.foi_enviado:
+            time.sleep(5)
+            for i in range(self._verificar_quantidade_de_envios()):
+                # Rodar o codigo de encaminhar
+                i_inicial = i * 5
+                i_final = (i + 1) * 5
+                lista_enviar = self.lista_contatos[i_inicial:i_final]
 
-            # Selecionar a mensagem para enviar e abre a caixa de encaminhar
-            lista_elementos = self.navegador.find_elements('class name', '_2AOIt')
-            for item in lista_elementos:
-                mensagem = self.mensagem.replace("\n", "")
-                texto = item.text.replace("\n", "")
-                if mensagem in texto:
-                    elemento = item
+                # Selecionar a mensagem para enviar e abre a caixa de encaminhar
+                lista_elementos = self.navegador.find_elements('class name', '_2AOIt')
+                for item in lista_elementos:
+                    mensagem = self.mensagem.replace("\n", "")
+                    texto = item.text.replace("\n", "")
+                    if mensagem in texto:
+                        elemento = item
 
-            ActionChains(self.navegador).move_to_element(elemento).perform()
-            elemento.find_element('class name', '_3u9t-').click()
-            time.sleep(0.5)
-            self.navegador.find_element('xpath',
-                                        '//*[@id="app"]/div/span[4]/div/ul/div/li[4]/div').click()
-            self.navegador.find_element('xpath',
-                                        '//*[@id="main"]/span[2]/div/button[4]/span').click()
-            time.sleep(1)
-
-            for nome in lista_enviar:
-                # Selecionar os 5 contatos para enviar
-                # Escrever o nome do contato
+                ActionChains(self.navegador).move_to_element(elemento).perform()
+                elemento.find_element('class name', '_3u9t-').click()
+                time.sleep(0.5)
                 self.navegador.find_element('xpath',
-                                            '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/div['
-                                            '1]/div/div/div[2]/div/div[1]/p'
-                                            ).send_keys(nome)
-                time.sleep(1)
-                # Dar enter
+                                            '//*[@id="app"]/div/span[4]/div/ul/div/li[4]/div').click()
                 self.navegador.find_element('xpath',
-                                            '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/div['
-                                            '1]/div/div/div[2]/div/div[1]/p'
-                                            ).send_keys(Keys.ENTER)
-                time.sleep(1)
-                # Apagar o nome do contato
-                self.navegador.find_element('xpath',
-                                            '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/div['
-                                            '1]/div/div/div[2]/div/div[1]/p'
-                                            ).send_keys(Keys.BACKSPACE)
+                                            '//*[@id="main"]/span[2]/div/button[4]/span').click()
                 time.sleep(1)
 
-            self.navegador.find_element('xpath',
-                                        '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/span/div/div/div/span'
-                                        ).click()
-            time.sleep(3)
+                for nome in lista_enviar:
+                    # Selecionar os 5 contatos para enviar
+                    # Escrever o nome do contato
+                    self.navegador.find_element('xpath',
+                                                '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/div['
+                                                '1]/div/div/div[2]/div/div[1]/p'
+                                                ).send_keys(nome)
+                    time.sleep(1)
+                    # Dar enter
+                    self.navegador.find_element('xpath',
+                                                '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/div['
+                                                '1]/div/div/div[2]/div/div[1]/p'
+                                                ).send_keys(Keys.ENTER)
+                    time.sleep(1)
+                    # Apagar o nome do contato
+                    self.navegador.find_element('xpath',
+                                                '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/div['
+                                                '1]/div/div/div[2]/div/div[1]/p'
+                                                ).send_keys(Keys.BACKSPACE)
+                    time.sleep(1)
 
+                self.navegador.find_element('xpath',
+                                            '//*[@id="app"]/div/span[2]/div/div/div/div/div/div/div/span/div/div/div/span'
+                                            ).click()
+                time.sleep(3)
+        else:
+            return "Envie para o receptor primeiro, caso contrário, ocorrerá um erro."
 
 if __name__ == '__main__':
-    envio = Sender(receptor="você", mensagem='Testando, 1.2..3...')
+    envio = Sender(receptor="Você", mensagem='Testando, 1.2..3...', com_data=False,
+                   lista_contatos=["Mãe", "Grupo do Mininha"])
+    envio.enviar_para_o_receptor()
+    envio.encaminhar_a_mensagem()
