@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="182c25f0-af1c-4b25-a698-7dd032a00289" name="Changes" comment="Finalizando o aplicativo geral, por fim adicionado para conectar no WhatsApp e esperar até que isto tenha acontecido, para não ocorrer vários erros por parte de ser rápido ou lento.">
+      <change beforePath="$PROJECT_DIR$/Primeiro/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Primeiro/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Primeiro/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Primeiro/test.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;NoPsNick&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="33e79caf-3739-4ebb-97d4-0e9229d6ab08" />
+        <option name="url" value="https://github.com/NoPsNick/WebScrapping.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2X2Np6Hch2Ldl9XkyJ9G7wdCssf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Usuario/Desktop/PyCharm/aula_webscrapping/Primeiro/venv&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="fazendo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="aula_webscrapping" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Primeiro" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\Usuario\Desktop\PyCharm\aula_webscrapping\Primeiro\fazendo.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="aula_webscrapping" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="aula_webscrapping" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Primeiro" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Primeiro/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.fazendo" />
+      <item itemvalue="Python.test" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.fazendo" />
+        <item itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="182c25f0-af1c-4b25-a698-7dd032a00289" name="Changes" comment="" />
+      <created>1697823394819</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1697823394819</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Projeto base, onde foi feito um programa que recebe uma mensagem, um recetor que seria quem irá receber a mensagem para encamilha-la para outras pessoas e a lista de pessoas(contatos), existe a função enviar_para_o_receptor que é qual envia para o recetor, a função verificar_quantidade_de_envios que retorna quantos blocos serão necessários, afinal irá encaminhar a cada 5 pessoas, para evitar hipótese de bloqueio e a função encaminhar_a_mensagem que encaminha para todos da lista de contatos a mensagem enviada para o recetor.">
+      <option name="closed" value="true" />
+      <created>1697826801202</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1697826801202</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Mudando de lugar">
+      <option name="closed" value="true" />
+      <created>1698069745684</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1698069745684</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Mudando de lugar">
+      <option name="closed" value="true" />
+      <created>1698079974195</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698079974195</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Terminado com alterações como: Pegar lista de contatos e pegar contatos recentes, infelizmente não consegui uma forma de pegar todos os recentes, porém irei tentar mais.">
+      <option name="closed" value="true" />
+      <created>1698413143307</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698413143307</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Comentado e arrumado alguns problemas deixados.">
+      <option name="closed" value="true" />
+      <created>1698413873215</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1698413873215</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Agora irá pegar todos os contatos recentes.">
+      <option name="closed" value="true" />
+      <created>1698692343160</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1698692343160</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Alterado para que pegue as datas de forma coerente agora, caso mostre em horas, será substituído por hoje.">
+      <option name="closed" value="true" />
+      <created>1698773051754</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1698773051754</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Verificando e alterando possíveis problemas de xpath...">
+      <option name="closed" value="true" />
+      <created>1699029601913</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1699029601913</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Feito para que agora você possa utilizar o SenderWithDate, onde que ele irá adicionar algumas funções extras, sendo pegar com data que já havia no Sender antes, porém foi transferido para o SenderWithDate e o novo seria poder filtrar através do &quot;desde&quot; e o &quot;até&quot; as datas, podendo enviar num determinado tempo apenas.">
+      <option name="closed" value="true" />
+      <created>1699296887135</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1699296887135</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Finalizando o aplicativo geral, por fim adicionado para conectar no WhatsApp e esperar até que isto tenha acontecido, para não ocorrer vários erros por parte de ser rápido ou lento.">
+      <option name="closed" value="true" />
+      <created>1699467838801</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1699467838801</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Projeto base, onde foi feito um programa que recebe uma mensagem, um recetor que seria quem irá receber a mensagem para encamilha-la para outras pessoas e a lista de pessoas(contatos), existe a função enviar_para_o_receptor que é qual envia para o recetor, a função verificar_quantidade_de_envios que retorna quantos blocos serão necessários, afinal irá encaminhar a cada 5 pessoas, para evitar hipótese de bloqueio e a função encaminhar_a_mensagem que encaminha para todos da lista de contatos a mensagem enviada para o recetor." />
+    <MESSAGE value="Mudando de lugar" />
+    <MESSAGE value="Terminado com alterações como: Pegar lista de contatos e pegar contatos recentes, infelizmente não consegui uma forma de pegar todos os recentes, porém irei tentar mais." />
+    <MESSAGE value="Comentado e arrumado alguns problemas deixados." />
+    <MESSAGE value="Agora irá pegar todos os contatos recentes." />
+    <MESSAGE value="Alterado para que pegue as datas de forma coerente agora, caso mostre em horas, será substituído por hoje." />
+    <MESSAGE value="Verificando e alterando possíveis problemas de xpath..." />
+    <MESSAGE value="Feito para que agora você possa utilizar o SenderWithDate, onde que ele irá adicionar algumas funções extras, sendo pegar com data que já havia no Sender antes, porém foi transferido para o SenderWithDate e o novo seria poder filtrar através do &quot;desde&quot; e o &quot;até&quot; as datas, podendo enviar num determinado tempo apenas." />
+    <MESSAGE value="Finalizando o aplicativo geral, por fim adicionado para conectar no WhatsApp e esperar até que isto tenha acontecido, para não ocorrer vários erros por parte de ser rápido ou lento." />
+    <option name="LAST_COMMIT_MESSAGE" value="Finalizando o aplicativo geral, por fim adicionado para conectar no WhatsApp e esperar até que isto tenha acontecido, para não ocorrer vários erros por parte de ser rápido ou lento." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
