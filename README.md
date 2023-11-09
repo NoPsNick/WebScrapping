@@ -77,4 +77,4 @@ print(secundario.conectar())
 secundario.enviar_para_o_receptor()
 
 # Encaminhar a mensagem enviada para o receptor para os contatos que estão entre o desde e o ate, a cada 5, Wagner e Maria não receberão o encaminhamento...
-secundario.encaminhar_a_mensagem()
+secundario.encaminhar_a_mensagem_com_data()
