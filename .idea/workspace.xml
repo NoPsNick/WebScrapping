@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="182c25f0-af1c-4b25-a698-7dd032a00289" name="Changes" comment="Finalizando o aplicativo geral, por fim adicionado para conectar no WhatsApp e esperar até que isto tenha acontecido, para não ocorrer vários erros por parte de ser rápido ou lento.">
-      <change beforePath="$PROJECT_DIR$/Primeiro/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Primeiro/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Primeiro/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Primeiro/test.py" afterDir="false" />
-    </list>
+    <list default="true" id="182c25f0-af1c-4b25-a698-7dd032a00289" name="Changes" comment="Feito e enviado o final para o main.py" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -62,7 +59,7 @@
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Usuario/Desktop/PyCharm/aula_webscrapping/Primeiro/venv&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
@@ -234,7 +231,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699467838801</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Feito e enviado o final para o main.py">
+      <option name="closed" value="true" />
+      <created>1699543242106</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1699543242106</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -247,7 +252,8 @@
     <MESSAGE value="Verificando e alterando possíveis problemas de xpath..." />
     <MESSAGE value="Feito para que agora você possa utilizar o SenderWithDate, onde que ele irá adicionar algumas funções extras, sendo pegar com data que já havia no Sender antes, porém foi transferido para o SenderWithDate e o novo seria poder filtrar através do &quot;desde&quot; e o &quot;até&quot; as datas, podendo enviar num determinado tempo apenas." />
     <MESSAGE value="Finalizando o aplicativo geral, por fim adicionado para conectar no WhatsApp e esperar até que isto tenha acontecido, para não ocorrer vários erros por parte de ser rápido ou lento." />
-    <option name="LAST_COMMIT_MESSAGE" value="Finalizando o aplicativo geral, por fim adicionado para conectar no WhatsApp e esperar até que isto tenha acontecido, para não ocorrer vários erros por parte de ser rápido ou lento." />
+    <MESSAGE value="Feito e enviado o final para o main.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feito e enviado o final para o main.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

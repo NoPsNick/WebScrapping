@@ -281,9 +281,10 @@ class SenderWithDate(Sender):
                 }
 
     def __init__(self, receptor: str, mensagem: str, conectado: bool = False, lista_contatos: dict = None,
-                 foi_enviado: bool = False, desde: str = '01/01/0001', ate=datetime.now().strftime('%d/%m/%Y')):
+                 foi_enviado: bool = False, desde: str = '01/01/0001', ate=datetime.now().strftime('%d/%m/%Y', ),
+                 ignorar: list = None):
 
-        super().__init__(receptor, mensagem, lista_contatos, foi_enviado, conectado)
+        super().__init__(receptor, mensagem, lista_contatos, foi_enviado, conectado, ignorar)
         self.conectado = conectado
         self.desde = desde
         self.ate = ate
